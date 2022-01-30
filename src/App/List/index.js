@@ -39,7 +39,7 @@ class ListFiles extends Component {
 
   getAllFiles() {
     console.log(this.state.config)
-    axios.get("/files", this.state.config).then((response) => {
+    axios.get("https://murmuring-mountain-24156.herokuapp.com"+"/files", this.state.config).then((response) => {
       console.log(response)
       this.setState({
         cardData: response.data
@@ -66,7 +66,7 @@ class ListFiles extends Component {
   uploadFile = (e) => {
     e.preventDefault()
     axios
-      .post("/file/upload", this.state.fileToUpload, this.state.config)
+      .post("https://murmuring-mountain-24156.herokuapp.com"+"/file/upload", this.state.fileToUpload, this.state.config)
       .then((res) => {
         alert("Uploaded File successfully!");
         this.getAllFiles()

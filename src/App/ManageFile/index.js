@@ -54,7 +54,7 @@ class ManageFile extends Component {
 
   getFile = () => {
     axios
-      .get(`/file/${this.state.fileId}`, this.state.arrayBufferConfig)
+      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`, this.state.arrayBufferConfig)
       .then((response) => {
         console.log(response);
         console.log(response.headers["content-type"]);
@@ -80,7 +80,7 @@ class ManageFile extends Component {
 
   getFileDetails = () => {
     axios
-      .get(`/file/${this.state.fileId}/details`, this.state.config)
+      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/details`, this.state.config)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -95,7 +95,7 @@ class ManageFile extends Component {
 
   getRoleOfFile = () => {
     axios
-      .get(`/file/${this.state.fileId}/role`, this.state.config)
+      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/role`, this.state.config)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -110,7 +110,7 @@ class ManageFile extends Component {
 
   getAccessList = () => {
     axios
-      .get(`/file/${this.state.fileId}/users`, this.state.config)
+      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/users`, this.state.config)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -145,7 +145,7 @@ class ManageFile extends Component {
   handleRename = () => {
     axios
       .put(
-        `/file/${this.state.fileId}/rename`,
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/rename`,
         {
           newFileName: this.state.newName,
         },
@@ -167,7 +167,7 @@ class ManageFile extends Component {
 
   handleDelete = () => {
     axios
-      .delete(`/file/${this.state.fileId}`, this.state.config)
+      .delete(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`, this.state.config)
       .then((response) => {
         this.props.history("/app");
       })
@@ -179,7 +179,7 @@ class ManageFile extends Component {
 
   loadOptions = (inputValue, callback) => {
     axios
-      .get(`/get-all-files?searchString=${inputValue}`, this.state.config)
+      .get(`https://murmuring-mountain-24156.herokuapp.com/get-all-files?searchString=${inputValue}`, this.state.config)
       .then((response) => {
         callback(
           response.data.map((row) => ({
@@ -212,7 +212,7 @@ class ManageFile extends Component {
         role: this.state.selectedRole.value,
       };
       axios
-        .post("/file/share", body, this.state.config)
+        .post("https://murmuring-mountain-24156.herokuapp.com"+"/file/share", body, this.state.config)
         .then((response) => {
           alert(response.data.msg);
         })
@@ -242,7 +242,7 @@ class ManageFile extends Component {
       role: this.state.selectedRoleToUpdate.value,
     };
     axios
-      .post("/file/share", body, this.state.config)
+      .post("https://murmuring-mountain-24156.herokuapp.com"+"/file/share", body, this.state.config)
       .then((response) => {
         alert(response.data.msg);
         this.getAccessList();
@@ -256,7 +256,7 @@ class ManageFile extends Component {
   handleRemoveAccess = (email) => {
     // console.log(body, this.state.config);
     axios
-      .delete(`/file/${this.state.fileId}/access`, {
+      .delete(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/access`, {
         data: { email: email },
         headers: { Authorization: reactLocalStorage.get("authToken") },
       })
