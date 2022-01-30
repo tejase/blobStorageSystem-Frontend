@@ -9,8 +9,12 @@ import ManageFile from "./App/ManageFile";
 
 import PrivateRoute from "./Components/Routes/PrivateRoute";
 import NonPrivateRoute from "./Components/Routes/NonPrivateRoute";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 export default class MainRouter extends Component {
+  componentDidMount (){
+    reactLocalStorage.set("baseUrl", "http://localhost:8000")
+  }
   render() {
     return (
       <BrowserRouter>

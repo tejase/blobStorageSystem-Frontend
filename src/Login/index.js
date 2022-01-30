@@ -34,7 +34,7 @@ class Login extends Component {
   submitForm = (e) => {
     e.preventDefault()
     console.log(this.props)
-    axios.post('/login', this.state.LoginFormValues)
+    axios.post("https://murmuring-mountain-24156.herokuapp.com"+"/login", this.state.LoginFormValues)
       .then((response) => {
         reactLocalStorage.set("authToken", response.data["access token"])
         console.log(this.props.history)

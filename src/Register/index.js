@@ -29,7 +29,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
   submitForm = () => {
     
-    axios.post('/signup', this.state.SignupFormValues)
+    axios.post("https://murmuring-mountain-24156.herokuapp.com"+"/signup", this.state.SignupFormValues)
       .then((response) => {
         reactLocalStorage.set("authToken", response.data["access token"])
         this.props.history("/app")
