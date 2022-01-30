@@ -12,40 +12,39 @@ import NonPrivateRoute from "./Components/Routes/NonPrivateRoute";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 export default class MainRouter extends Component {
-  componentDidMount (){
-    reactLocalStorage.set("baseUrl", "http://localhost:8000")
-  }
   render() {
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route element={<PrivateRoute />}>
-            <Route path="/app/files" element={<ListFiles />} />
-            <Route path="/app/files/:fileId" element={<ManageFile />} />
+      <div style = {{margin: "30px"}}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route path="/app/files" element={<ListFiles />} />
+              <Route path="/app/files/:fileId" element={<ManageFile />} />
+              <Route
+                path="/app/*"
+                element={<Navigate to="/app/files" replace />}
+              />
+            </Route>
             <Route
-              path="/app/*"
-              element={<Navigate to="/app/files" replace />}
+              path="/login"
+              element={
+                <NonPrivateRoute>
+                  <Login />
+                </NonPrivateRoute>
+              }
             />
-          </Route>
-          <Route
-            path="/login"
-            element={
-              <NonPrivateRoute>
-                <Login />
-              </NonPrivateRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <NonPrivateRoute>
-                <Register />
-              </NonPrivateRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/app" replace />} />
-        </Routes>
-      </BrowserRouter>
+            <Route
+              path="/register"
+              element={
+                <NonPrivateRoute>
+                  <Register />
+                </NonPrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/app" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     );
   }
 }

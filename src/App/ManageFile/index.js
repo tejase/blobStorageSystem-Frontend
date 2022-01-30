@@ -54,7 +54,10 @@ class ManageFile extends Component {
 
   getFile = () => {
     axios
-      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`, this.state.arrayBufferConfig)
+      .get(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`,
+        this.state.arrayBufferConfig
+      )
       .then((response) => {
         console.log(response);
         console.log(response.headers["content-type"]);
@@ -80,7 +83,10 @@ class ManageFile extends Component {
 
   getFileDetails = () => {
     axios
-      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/details`, this.state.config)
+      .get(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/details`,
+        this.state.config
+      )
       .then((response) => {
         console.log(response);
         this.setState({
@@ -95,7 +101,10 @@ class ManageFile extends Component {
 
   getRoleOfFile = () => {
     axios
-      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/role`, this.state.config)
+      .get(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/role`,
+        this.state.config
+      )
       .then((response) => {
         console.log(response);
         this.setState({
@@ -110,7 +119,10 @@ class ManageFile extends Component {
 
   getAccessList = () => {
     axios
-      .get(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/users`, this.state.config)
+      .get(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/users`,
+        this.state.config
+      )
       .then((response) => {
         console.log(response);
         this.setState({
@@ -167,7 +179,10 @@ class ManageFile extends Component {
 
   handleDelete = () => {
     axios
-      .delete(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`, this.state.config)
+      .delete(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}`,
+        this.state.config
+      )
       .then((response) => {
         this.props.history("/app");
       })
@@ -179,7 +194,10 @@ class ManageFile extends Component {
 
   loadOptions = (inputValue, callback) => {
     axios
-      .get(`https://murmuring-mountain-24156.herokuapp.com/get-all-files?searchString=${inputValue}`, this.state.config)
+      .get(
+        `https://murmuring-mountain-24156.herokuapp.com/get-all-files?searchString=${inputValue}`,
+        this.state.config
+      )
       .then((response) => {
         callback(
           response.data.map((row) => ({
@@ -212,7 +230,11 @@ class ManageFile extends Component {
         role: this.state.selectedRole.value,
       };
       axios
-        .post("https://murmuring-mountain-24156.herokuapp.com"+"/file/share", body, this.state.config)
+        .post(
+          "https://murmuring-mountain-24156.herokuapp.com" + "/file/share",
+          body,
+          this.state.config
+        )
         .then((response) => {
           alert(response.data.msg);
         })
@@ -242,7 +264,11 @@ class ManageFile extends Component {
       role: this.state.selectedRoleToUpdate.value,
     };
     axios
-      .post("https://murmuring-mountain-24156.herokuapp.com"+"/file/share", body, this.state.config)
+      .post(
+        "https://murmuring-mountain-24156.herokuapp.com" + "/file/share",
+        body,
+        this.state.config
+      )
       .then((response) => {
         alert(response.data.msg);
         this.getAccessList();
@@ -256,10 +282,15 @@ class ManageFile extends Component {
   handleRemoveAccess = (email) => {
     // console.log(body, this.state.config);
     axios
-      .delete(`https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/access`, {
-        data: { email: email },
-        headers: { Authorization: reactLocalStorage.get("authToken") },
-      })
+      .delete(
+        `https://murmuring-mountain-24156.herokuapp.com/file/${this.state.fileId}/access`,
+        {
+          data: { email: email },
+          headers: {
+            Authorization: `Bearer ${reactLocalStorage.get("authToken")}`,
+          },
+        }
+      )
       .then((response) => {
         alert(response.data.msg);
         this.getAccessList();
@@ -409,30 +440,36 @@ class ManageFile extends Component {
         )}
 
         {this.state.isFileLoaded ? (
-          <div style = {styles.container}>
+          <div style={styles.container}>
             <div style={{ width: "2000px" }}>
-            <div style={{ float: "left", width: "500px", marginLeft: "79px" }}>
-              <p>Download</p>
-              <button
-                onClick={() => {
-                  this.download();
-                }}
+              <div
+                style={{ float: "left", width: "500px", marginLeft: "79px" }}
               >
-                Download
-              </button>
+                <p>Download</p>
+                <button
+                  onClick={() => {
+                    this.download();
+                  }}
+                >
+                  Download
+                </button>
+              </div>
+              <div style={{ float: "left", width: "590px" }}>
+                <p>Rename</p>
+                <input
+                  name="newName"
+                  type="text"
+                  onChange={this.getFileRename}
+                />
+                <button onClick={this.handleRename}>rename</button>
+              </div>
+              <div style={{ float: "left", width: "160px" }}>
+                <p>Delete</p>
+                <button onClick={this.handleDelete}>delete</button>
+              </div>
+              <br style={{ clear: "left" }} />
             </div>
-            <div style={{ float: "left", width: "590px" }}>
-              <p>Rename</p>
-              <input name="newName" type="text" onChange={this.getFileRename} />
-              <button onClick={this.handleRename}>rename</button>
-            </div>
-            <div style={{ float: "left", width: "160px" }}>
-              <p>Delete</p>
-              <button onClick={this.handleDelete}>delete</button>
-            </div>
-            <br style={{ clear: "left" }} />
           </div>
-            </div>
         ) : null}
 
         {/* {this.state.isFileLoaded ? (
