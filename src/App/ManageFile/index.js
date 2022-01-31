@@ -195,7 +195,7 @@ class ManageFile extends Component {
   loadOptions = (inputValue, callback) => {
     axios
       .get(
-        `https://murmuring-mountain-24156.herokuapp.com/get-all-files?searchString=${inputValue}`,
+        `https://murmuring-mountain-24156.herokuapp.com/getUsers?searchString=${inputValue}`,
         this.state.config
       )
       .then((response) => {
