@@ -175,13 +175,6 @@ class ManageFile extends Component {
             });
     };
 
-    handleLinkSharing = (e) => {
-        console.log("get link pressed")
-        let fileUrl = `https://murmuring-mountain-24156.herokuapp.com/file/noauth/${this.state.fileId}`
-        navigator.clipboard.writeText(fileUrl)
-        alert("Link copied to clipboard.. You can share it. Anyone in the internet with this link would be able to download this file")
-    }
-
     handleDelete = () => {
         axios
             .delete(
@@ -326,7 +319,7 @@ class ManageFile extends Component {
         // </div>);
         console.log(this.state);
         return ( <
-            div > { " " } {
+            div > {
                 this.state.isFileLoaded ? ( <
                     div style = {
                         {
@@ -338,23 +331,21 @@ class ManageFile extends Component {
                     <
                     h2 >
                     <
-                    label > File name: < /label> {this.state.fileDetails.filename}{" "} < /
-                    h2 > { " " } <
+                    label > File name: < /label> { this.state.fileDetails.filename } <
+                    /h2> <
                     h2 >
                     <
-                    label > Role: < /label> {this.state.role}{" "} < /
-                    h2 > { " " } <
+                    label > Role: < /label> {this.state.role} <
+                    /h2> <
                     /div>
                 ) : null
-            } { " " } {
+            } {
                 this.state.isFileLoaded ? ( <
                     div style = {
-                        { display: "flex" }
-                    } >
+                        { display: "flex" } } >
                     <
                     div style = {
-                        { flex: "0 0 65%" }
-                    } > { " " } {
+                        { flex: "0 0 65%" } } > {
                         this.state.contentType.includes("image") ? ( <
                             img style = {
                                 {
@@ -368,8 +359,7 @@ class ManageFile extends Component {
                             }
                             src = { this.state.fileData }
                             alt = "" >
-                            <
-                            /img>
+                            < /img>
                         ) : ( <
                             div style = {
                                 {
@@ -383,26 +373,25 @@ class ManageFile extends Component {
                             } >
                             <
                             p >
-                            Unable To display the file.File type: { " " } { this.state.contentType } { " " } <
-                            /p>{" "} < /
-                            div >
+                            Unable To display the file.File type: { " " } { this.state.contentType } <
+                            /p> <
+                            /div>
                         )
-                    } { " " } <
-                    /div>{" "} <
+                    } <
+                    /div> <
                     div >
                     <
                     div style = {
-                        { flex: 1 }
-                    } >
-                    File Details { " " } <
+                        { flex: 1 } } >
+                    File Details <
                     div >
                     <
                     div >
                     <
-                    p > { " " } { this.state.accessList.length }
-                    user(s) have access to this file { " " } <
-                    /p>{" "} <
-                    ol > { " " } {
+                    p > { this.state.accessList.length }
+                    user(s) have access to this file <
+                    /p> <
+                    ol > {
                         this.state.accessList.map((user) => ( <
                             li style = {
                                 {
@@ -412,10 +401,9 @@ class ManageFile extends Component {
                                 }
                             } >
                             <
-                            span > { " " } { user.email } - { user.role } { " " } <
+                            span > { user.email } - { user.role } <
                             div style = {
-                                { display: "flex" }
-                            } >
+                                { display: "flex" } } >
                             <
                             Select isClearable = { true }
                             options = {
@@ -433,94 +421,122 @@ class ManageFile extends Component {
                                 () =>
                                 this.handleUpdateRole(user.email)
                             } >
-                            Update Role { " " } <
-                            /button>{" "} <
+                            Update Role <
+                            /button> <
                             button onClick = {
                                 () =>
                                 this.handleRemoveAccess(user.email)
                             } >
-                            remove access { " " } <
-                            /button>{" "} < /
-                            div > { " " } <
-                            /span>{" "} < /
-                            li >
+                            remove access <
+                            /button> <
+                            /div> <
+                            /span> <
+                            /li>
                         ))
-                    } { " " } <
-                    /ol>{" "} < /
-                    div > { " " } <
-                    /div>{" "} < /
-                    div > { " " } <
-                    /div>{" "} < /
-                    div >
+                    } <
+                    /ol> <
+                    /div> <
+                    /div> <
+                    /div> <
+                    /div> <
+                    /div>
                 ) : this.state.isFileLoaded ? ( <
                     div >
                     <
                     p >
-                    Unable To display the file.File type: { this.state.contentType } { " " } <
-                    /p>{" "} < /
-                    div >
+                    Unable To display the file.File type: { this.state.contentType } <
+                    /p> <
+                    /div>
                 ) : ( <
                     div > Loading please wait.. < /div>
                 )
-            } { " " } {
+            }
+
+            {
                 this.state.isFileLoaded ? ( <
                     div style = { styles.container } >
                     <
                     div style = {
-                        { width: "2000px" }
-                    } >
+                        { width: "2000px" } } >
                     <
                     div style = {
-                        { float: "left", width: "500px", marginLeft: "79px" }
-                    } >
+                        { float: "left", width: "500px", marginLeft: "79px" } } >
                     <
-                    p > Download < /p>{" "} <
+                    p > Download < /p> <
                     button onClick = {
                         () => {
                             this.download();
                         }
                     } >
-                    Download { " " } <
-                    /button>{" "} < /
-                    div > { " " } <
+                    Download <
+                    /button> <
+                    /div> <
                     div style = {
-                        { float: "left", width: "590px" }
-                    } >
+                        { float: "left", width: "590px" } } >
                     <
-                    p > Rename < /p>{" "} <
+                    p > Rename < /p> <
                     input name = "newName"
                     type = "text"
                     onChange = { this.getFileRename }
-                    />{" "} <
-                    button onClick = { this.handleRename } > rename < /button>{" "} < /
-                    div > { " " } <
+                    /> <
+                    button onClick = { this.handleRename } > rename < /button> <
+                    /div> <
                     div style = {
-                        { float: "left", width: "160px" }
-                    } >
+                        { float: "left", width: "160px" } } >
                     <
-                    p > Delete < /p>{" "} <
-                    button onClick = { this.handleDelete } > delete < /button>{" "} < /
-                    div > { " " } <
+                    p > Delete < /p> <
+                    button onClick = { this.handleDelete } > delete < /button> <
+                    /div> <
                     br style = {
-                        { clear: "left" }
-                    }
-                    />{" "} < /
-                    div > { " " } <
+                        { clear: "left" } }
+                    /> <
+                    /div> <
                     /div>
                 ) : null
-            } { " " }
+            }
+
+            {
+                /* {this.state.isFileLoaded ? (
+                          <div style={styles.container}>
+                            <button
+                              onClick={() => {
+                                this.download();
+                              }}
+                            >
+                              Download
+                            </button>
+
+                            <p>Rename</p>
+                            <input name="newName" type="text" onChange={this.getFileRename} />
+                            <button onClick={this.handleRename}>rename</button>
+
+                            <p>Delete</p>
+                            <button onClick={this.handleDelete}>delete</button>
+                          </div>
+                        ) : null}
+
+                        <div style={styles.container}>
+                          <p>Rename</p>
+                          <input name="newName" type="text" onChange={this.getFileRename} />
+                          <button onClick={this.handleRename}>rename</button>
+                        </div>
+
+                        <div style={styles.container}>
+                          <p>Delete</p>
+                          <button onClick={this.handleDelete}>delete</button>
+                        </div> */
+            }
 
             <
             div style = { styles.container } >
             <
-            p > Get Sharable Link < /p>{" "} <
-            button onClick = { this.handleLinkSharing } > Generate download link < /button>
+            p > Get Sharable Link < /p> <
+            /div>
 
             <
-            /div>{" "} <
             div style = { styles.container } >
             <
-            p > Share < /p>{" "} <
+            p > Share < /p> <
             div style = {
                 {
                     display: "grid",
@@ -549,12 +565,14 @@ class ManageFile extends Component {
             placeholder = "Select a role" /
             >
             <
-            /div>{" "} <
-            button onClick = { this.handleShare } > share < /button>{" "} < /
-            div > { " " } {
+            /div> <
+            button onClick = { this.handleShare } > share < /button> <
+            /div>
+
+            {
                 this.state.isFileLoaded ?
-                    null // <div style={styles.container}>
-                    : //   File Details
+                    null : // <div style={styles.container}>
+                    //   File Details
                     //   <div>
                     //     <div>
                     //       <p>
@@ -602,7 +620,7 @@ class ManageFile extends Component {
                     //   </div>
                     // </div>
                     null
-            } { " " } <
+            } <
             /div>
         );
     }
